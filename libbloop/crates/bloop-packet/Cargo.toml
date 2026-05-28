@@ -1,0 +1,11 @@
+[package]
+name = "bloop-packet"
+version = "0.1.0"
+edition = "2021"
+description = "Packet framing and CRC for Bloopnet transport"
+
+# bloop-packet has no dependency on bloop-core by design.
+# Transport framing is separate from payload encoding.
+# Use bloop-core as a dev-dependency only for integration tests.
+[dev-dependencies]
+bloop-core = { path = "../bloop-core" }

@@ -1,0 +1,15 @@
+[package]
+name = "bloop-lora-gateway"
+version = "0.1.0"
+edition = "2021"
+description = "LoRa gateway skeleton for Bloopnet — serial transmit and listen"
+
+[[bin]]
+name = "bloop-lora"
+path = "src/main.rs"
+
+[dependencies]
+bloop-core   = { path = "../../crates/bloop-core" }
+bloop-packet = { path = "../../crates/bloop-packet" }
+clap         = { version = "4", features = ["derive"] }
+serialport   = "4"

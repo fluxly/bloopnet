@@ -1,0 +1,13 @@
+[package]
+name = "bloop-cli"
+version = "0.1.0"
+edition = "2021"
+description = "Command-line interface for Bloopnet"
+
+[[bin]]
+name = "bloop"
+path = "src/main.rs"
+
+[dependencies]
+bloop-core = { path = "../bloop-core" }
+clap = { version = "4", features = ["derive"] }

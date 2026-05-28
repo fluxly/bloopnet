@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bloopnet terminal</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div class="terminal">
+      <header class="terminal-header">
+        <span class="logo">bloopnet</span>
+        <span class="tagline">like twitter. only better because it is worse.</span>
+      </header>
+
+      <div class="input-section">
+        <span class="prompt">›</span>
+        <textarea
+          id="input"
+          rows="4"
+          placeholder="write a bloop..."
+          autocomplete="off"
+          spellcheck="false"
+        ></textarea>
+        <div class="char-bar">
+          <span id="char-count">0</span>
+          <span class="char-limit">/ 64 symbols</span>
+          <span id="size-badge" class="size-badge"></span>
+        </div>
+      </div>
+
+      <div id="output" class="output" aria-live="polite"></div>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+[workspace]
+members = [
+  "crates/bloop-core",
+  "crates/bloop-cli",
+  "crates/bloop-packet",
+  "examples/lora-gateway-skeleton",
+]
+# bloop-wasm is excluded — it targets wasm32 and is built separately with wasm-pack.
+exclude = ["crates/bloop-wasm"]
+resolver = "2"

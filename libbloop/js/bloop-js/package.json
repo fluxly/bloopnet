@@ -1,0 +1,22 @@
+{
+  "name": "@bloopnet/libbloop",
+  "version": "0.1.0",
+  "description": "TypeScript bindings for the Bloopnet codec",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "module": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "build:wasm": "cd ../../crates/bloop-wasm && wasm-pack build --target bundler --out-dir ../../js/bloop-js/wasm",
+    "prepare": "npm run build"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "files": [
+    "dist",
+    "wasm"
+  ]
+}

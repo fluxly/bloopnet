@@ -1,0 +1,215 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #0d0d0d;
+  --bg-raise:  #151515;
+  --border:    #2a2a2a;
+  --dim:       #555;
+  --label:     #888;
+  --text:      #d0d0d0;
+  --bright:    #f0f0f0;
+  --accent:    #4ab4ff;
+  --ok:        #4fc96a;
+  --warn:      #f0c040;
+  --err:       #f05060;
+  --hex:       #9ba8c0;
+  --font:      "Courier New", "Menlo", "Monaco", monospace;
+}
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.terminal {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem;
+  min-height: 100vh;
+}
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+
+.terminal-header {
+  margin-bottom: 2.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  display: block;
+  font-size: 1.4rem;
+  font-weight: bold;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  text-transform: lowercase;
+}
+
+.tagline {
+  font-size: 0.8rem;
+  color: var(--dim);
+  font-style: italic;
+}
+
+/* ── Input ───────────────────────────────────────────────────────────────── */
+
+.input-section {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.prompt {
+  position: absolute;
+  left: 0;
+  top: 0.25rem;
+  color: var(--accent);
+  font-size: 1.1rem;
+  user-select: none;
+}
+
+textarea {
+  display: block;
+  width: 100%;
+  padding: 0.25rem 0 0.25rem 1.5rem;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  color: var(--bright);
+  font-family: var(--font);
+  font-size: 1rem;
+  line-height: 1.6;
+  resize: none;
+  outline: none;
+  caret-color: var(--accent);
+}
+
+textarea::placeholder { color: var(--dim); }
+
+textarea:focus { border-bottom-color: var(--accent); }
+
+.char-bar {
+  display: flex;
+  align-items: baseline;
+  gap: 0.3rem;
+  margin-top: 0.4rem;
+  padding-left: 1.5rem;
+  font-size: 0.75rem;
+  color: var(--dim);
+}
+
+#char-count { color: var(--label); }
+.char-limit { }
+
+.size-badge {
+  margin-left: auto;
+  padding: 0 0.4rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  text-transform: lowercase;
+  color: var(--dim);
+}
+
+.size-badge.polite { border-color: var(--ok); color: var(--ok); }
+.size-badge.warn   { border-color: var(--warn); color: var(--warn); }
+.size-badge.over   { border-color: var(--err); color: var(--err); }
+
+/* ── Output ──────────────────────────────────────────────────────────────── */
+
+.output { min-height: 2rem; }
+
+.report {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.15rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.report-label {
+  color: var(--label);
+  white-space: nowrap;
+}
+
+.report-value { color: var(--bright); }
+.report-value.ok   { color: var(--ok); }
+.report-value.warn { color: var(--warn); }
+.report-value.no   { color: var(--err); }
+
+.hex-row {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+  margin: 0.4rem 0;
+}
+
+.hex-label { color: var(--label); white-space: nowrap; }
+
+.hex-value {
+  color: var(--hex);
+  word-break: break-all;
+  flex: 1;
+  font-size: 0.85rem;
+}
+
+.copy-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--dim);
+  font-family: var(--font);
+  font-size: 0.7rem;
+  padding: 0.1rem 0.5rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+.copy-btn.copied { border-color: var(--ok); color: var(--ok); }
+
+/* ── Decoded section ─────────────────────────────────────────────────────── */
+
+.decoded-section {
+  border-top: 1px solid var(--border);
+  margin-top: 1rem;
+  padding-top: 1rem;
+}
+
+.decoded-label {
+  color: var(--dim);
+  font-size: 0.75rem;
+  margin-bottom: 0.3rem;
+}
+
+.decoded-text {
+  color: var(--ok);
+  white-space: pre-wrap;
+}
+
+/* ── Issues ──────────────────────────────────────────────────────────────── */
+
+.issues-section {
+  margin-top: 1.5rem;
+}
+
+.issue {
+  display: flex;
+  gap: 0.5rem;
+  color: var(--err);
+  font-size: 0.85rem;
+  margin-bottom: 0.2rem;
+}
+
+.issue-marker { flex-shrink: 0; }
+
+/* ── Loading / empty states ──────────────────────────────────────────────── */
+
+.state-msg {
+  color: var(--dim);
+  font-size: 0.85rem;
+  font-style: italic;
+}
