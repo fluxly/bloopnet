@@ -5,6 +5,9 @@ import {
   inspectText,
 } from "bloop-wasm";
 
+// Registers <bloop-audio-vm> custom element.
+import "../../../js/bloop-audio-vm/src/bloop-audio-vm.js";
+
 // ── Types matching WasmInspectionReport from bloop-wasm ───────────────────
 
 interface ValidationIssue {
@@ -26,10 +29,22 @@ interface InspectionReport {
 
 // ── DOM refs ──────────────────────────────────────────────────────────────
 
-const inputEl = document.getElementById("input") as HTMLTextAreaElement;
-const outputEl = document.getElementById("output") as HTMLDivElement;
-const charCountEl = document.getElementById("char-count") as HTMLSpanElement;
-const sizeBadgeEl = document.getElementById("size-badge") as HTMLSpanElement;
+const inputEl       = document.getElementById("input")          as HTMLTextAreaElement;
+const outputEl      = document.getElementById("output")         as HTMLDivElement;
+const charCountEl   = document.getElementById("char-count")     as HTMLSpanElement;
+const sizeBadgeEl   = document.getElementById("size-badge")     as HTMLSpanElement;
+
+// Audio panel
+const audioEl         = document.getElementById("audio")          as HTMLElement & {
+  bloop: string; volume: number; rate: number; playing: boolean;
+  play(): Promise<void>; stop(): void; reset(): void;
+};
+const enableAudioBtn  = document.getElementById("enableAudio")    as HTMLButtonElement;
+const playWhileTyping = document.getElementById("playWhileTyping") as HTMLInputElement;
+const volumeSlider    = document.getElementById("volumeSlider")   as HTMLInputElement;
+const volumeValue     = document.getElementById("volumeValue")    as HTMLSpanElement;
+const rateSlider      = document.getElementById("rateSlider")     as HTMLInputElement;
+const rateValue       = document.getElementById("rateValue")      as HTMLSpanElement;
 
 // ── Helpers ───────────────────────────────────────────────────────────────
 
@@ -152,8 +167,67 @@ outputEl.addEventListener("click", (e) => {
   });
 });
 
+// ── Audio ─────────────────────────────────────────────────────────────────
+
+function debounce(fn: (v: string) => void, ms: number): (v: string) => void {
+  let t: ReturnType<typeof setTimeout>;
+  return (v) => { clearTimeout(t); t = setTimeout(() => fn(v), ms); };
+}
+
+// Sync button label / style to playing state.
+function syncAudioBtn(): void {
+  if (audioEl.playing) {
+    enableAudioBtn.textContent = "stop";
+    enableAudioBtn.classList.add("playing");
+  } else {
+    enableAudioBtn.textContent = "enable audio";
+    enableAudioBtn.classList.remove("playing");
+  }
+}
+
+enableAudioBtn.addEventListener("click", async () => {
+  if (audioEl.playing) {
+    audioEl.stop();
+  } else {
+    try {
+      await audioEl.play();
+    } catch {
+      // bloop-audio-error event already dispatched by the element
+    }
+  }
+});
+
+audioEl.addEventListener("bloop-audio-start", syncAudioBtn);
+audioEl.addEventListener("bloop-audio-stop",  syncAudioBtn);
+audioEl.addEventListener("bloop-audio-error", () => {
+  enableAudioBtn.textContent = "audio unavailable";
+  enableAudioBtn.disabled = true;
+});
+
+volumeSlider.addEventListener("input", () => {
+  const v = parseFloat(volumeSlider.value);
+  audioEl.volume = v;
+  volumeValue.textContent = v.toFixed(2);
+});
+
+rateSlider.addEventListener("input", () => {
+  const v = parseFloat(rateSlider.value);
+  audioEl.rate = v;
+  rateValue.textContent = `${v}×`;
+});
+
+const updateAudio = debounce((text: string) => {
+  audioEl.bloop = text;
+  if (playWhileTyping.checked && !audioEl.playing) {
+    audioEl.play().catch(() => {});
+  }
+}, 60);
+
 // ── Init ──────────────────────────────────────────────────────────────────
 
 // bundler target initializes synchronously on import; wire up events directly.
-inputEl.addEventListener("input", () => render(inputEl.value));
+inputEl.addEventListener("input", () => {
+  render(inputEl.value);
+  updateAudio(inputEl.value);
+});
 inputEl.focus();
