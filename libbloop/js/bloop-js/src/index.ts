@@ -34,7 +34,7 @@ export interface InspectionReport {
   readonly payloadBytes: number;
   readonly valid: boolean;
   readonly issues: ValidationIssue[];
-  readonly sizeClass: "pulse" | "bloop" | "longbloop" | "flood" | "too long";
+  readonly sizeClass: "blip" | "bloop" | "blooper" | "bloopest" | "too long";
   readonly loraPolite: boolean;
 }
 

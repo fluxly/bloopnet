@@ -160,7 +160,7 @@ fn bank_thirty_one_is_unknown() {
 // --- Message length ---
 
 #[test]
-fn message_at_flood_limit_is_ok() {
+fn message_at_bloopest_limit_is_ok() {
     let symbols = vec![Symbol::A; 256];
     let report = validate_symbols(&symbols);
     let too_long = report
@@ -171,7 +171,7 @@ fn message_at_flood_limit_is_ok() {
 }
 
 #[test]
-fn message_over_flood_limit_produces_issue() {
+fn message_over_bloopest_limit_produces_issue() {
     let symbols = vec![Symbol::A; 257];
     let report = validate_symbols(&symbols);
     assert!(!report.ok);
@@ -185,32 +185,32 @@ fn message_over_flood_limit_produces_issue() {
 
 #[test]
 fn size_class_boundaries() {
-    assert_eq!(size_class(0), SizeClass::Pulse);
-    assert_eq!(size_class(16), SizeClass::Pulse);
+    assert_eq!(size_class(0), SizeClass::Blip);
+    assert_eq!(size_class(16), SizeClass::Blip);
     assert_eq!(size_class(17), SizeClass::Bloop);
     assert_eq!(size_class(64), SizeClass::Bloop);
-    assert_eq!(size_class(65), SizeClass::LongBloop);
-    assert_eq!(size_class(128), SizeClass::LongBloop);
-    assert_eq!(size_class(129), SizeClass::Flood);
-    assert_eq!(size_class(256), SizeClass::Flood);
+    assert_eq!(size_class(65), SizeClass::Blooper);
+    assert_eq!(size_class(128), SizeClass::Blooper);
+    assert_eq!(size_class(129), SizeClass::Bloopest);
+    assert_eq!(size_class(256), SizeClass::Bloopest);
     assert_eq!(size_class(257), SizeClass::TooLong);
 }
 
 #[test]
-fn pulse_and_bloop_are_polite_lora() {
-    assert!(SizeClass::Pulse.is_polite_lora());
+fn blip_and_bloop_are_polite_lora() {
+    assert!(SizeClass::Blip.is_polite_lora());
     assert!(SizeClass::Bloop.is_polite_lora());
-    assert!(!SizeClass::LongBloop.is_polite_lora());
-    assert!(!SizeClass::Flood.is_polite_lora());
+    assert!(!SizeClass::Blooper.is_polite_lora());
+    assert!(!SizeClass::Bloopest.is_polite_lora());
     assert!(!SizeClass::TooLong.is_polite_lora());
 }
 
 #[test]
 fn size_class_names() {
-    assert_eq!(SizeClass::Pulse.name(), "pulse");
+    assert_eq!(SizeClass::Blip.name(), "blip");
     assert_eq!(SizeClass::Bloop.name(), "bloop");
-    assert_eq!(SizeClass::LongBloop.name(), "longbloop");
-    assert_eq!(SizeClass::Flood.name(), "flood");
+    assert_eq!(SizeClass::Blooper.name(), "blooper");
+    assert_eq!(SizeClass::Bloopest.name(), "bloopest");
     assert_eq!(SizeClass::TooLong.name(), "too long");
 }
 

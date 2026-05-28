@@ -34,7 +34,7 @@ const text = decodeText(encoded.bytes, encoded.symbolCount);
 // Inspect
 const report = inspectText("hello world");
 // → { text: "hello world", symbols: 11, bits: 55, payloadBytes: 7,
-//     valid: true, issues: [], sizeClass: "pulse", loraPolite: true }
+//     valid: true, issues: [], sizeClass: "blip", loraPolite: true }
 
 // Validate
 const v = validateText("Hello World!");

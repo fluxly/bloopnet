@@ -37,35 +37,35 @@ impl ValidationReport {
 /// Size classes for Bloop messages. Positions are in symbols.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum SizeClass {
-    Pulse,     // ≤ 16 symbols  / 10 bytes
-    Bloop,     // ≤ 64 symbols  / 40 bytes
-    LongBloop, // ≤ 128 symbols / 80 bytes
-    Flood,     // ≤ 256 symbols / 160 bytes (impolite on LoRa)
-    TooLong,   // > 256 symbols
+    Blip,     // ≤ 16 symbols  / 10 bytes
+    Bloop,    // ≤ 64 symbols  / 40 bytes
+    Blooper,  // ≤ 128 symbols / 80 bytes
+    Bloopest, // ≤ 256 symbols / 160 bytes (impolite on LoRa)
+    TooLong,  // > 256 symbols
 }
 
 impl SizeClass {
     pub fn name(&self) -> &'static str {
         match self {
-            SizeClass::Pulse => "pulse",
+            SizeClass::Blip => "blip",
             SizeClass::Bloop => "bloop",
-            SizeClass::LongBloop => "longbloop",
-            SizeClass::Flood => "flood",
+            SizeClass::Blooper => "blooper",
+            SizeClass::Bloopest => "bloopest",
             SizeClass::TooLong => "too long",
         }
     }
 
     pub fn is_polite_lora(&self) -> bool {
-        matches!(self, SizeClass::Pulse | SizeClass::Bloop)
+        matches!(self, SizeClass::Blip | SizeClass::Bloop)
     }
 }
 
 pub fn size_class(symbol_count: usize) -> SizeClass {
     match symbol_count {
-        0..=16 => SizeClass::Pulse,
+        0..=16 => SizeClass::Blip,
         17..=64 => SizeClass::Bloop,
-        65..=128 => SizeClass::LongBloop,
-        129..=256 => SizeClass::Flood,
+        65..=128 => SizeClass::Blooper,
+        129..=256 => SizeClass::Bloopest,
         _ => SizeClass::TooLong,
     }
 }
@@ -107,7 +107,7 @@ pub fn validate_symbols(symbols: &[Symbol]) -> ValidationReport {
             ValidationIssueKind::MessageTooLong,
             None,
             format!(
-                "message is {} symbols, exceeds flood limit of 256",
+                "message is {} symbols, exceeds bloopest limit of 256",
                 symbols.len()
             ),
         );

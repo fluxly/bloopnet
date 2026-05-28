@@ -119,11 +119,11 @@ fn cmd_inspect(text: &str) {
 
 fn suitability(sc: &SizeClass) -> &'static str {
     match sc {
-        SizeClass::Pulse => "polite lora pulse",
+        SizeClass::Blip => "polite lora blip",
         SizeClass::Bloop => "polite lora bloop",
-        SizeClass::LongBloop => "longbloop (pushing lora limits)",
-        SizeClass::Flood => "flood (impolite on lora)",
-        SizeClass::TooLong => "too long (exceeds flood limit)",
+        SizeClass::Blooper => "blooper (pushing lora limits)",
+        SizeClass::Bloopest => "bloopest (impolite on lora)",
+        SizeClass::TooLong => "too long (exceeds bloopest limit)",
     }
 }
 

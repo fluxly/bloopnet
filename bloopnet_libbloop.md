@@ -464,16 +464,16 @@ Support recommended size classes:
 
 | Name | Symbols | Payload Bytes |
 |---|---:|---:|
-| pulse | 16 | 10 |
+| blip | 16 | 10 |
 | bloop | 64 | 40 |
-| longbloop | 128 | 80 |
-| flood | 256 | 160 |
+| blooper | 128 | 80 |
+| bloopest | 256 | 160 |
 
 A standard Bloop should be 64 symbols.
 
-A longbloop should be 128 symbols.
+A blooper should be 128 symbols.
 
-A flood should be considered impolite for LoRa unless explicitly allowed.
+A bloopest should be considered impolite for LoRa unless explicitly allowed.
 
 ---
 

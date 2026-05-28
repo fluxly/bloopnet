@@ -88,10 +88,10 @@ Unknown extension tokens are preserved structurally and do not cause parse failu
 
 | Name | Symbols | Payload Bytes | Notes |
 |---|---:|---:|---|
-| pulse | 16 | 10 | |
+| blip | 16 | 10 | |
 | bloop | 64 | 40 | standard; polite LoRa target |
-| longbloop | 128 | 80 | pushing LoRa limits |
-| flood | 256 | 160 | impolite on shared LoRa networks |
+| blooper | 128 | 80 | pushing LoRa limits |
+| bloopest | 256 | 160 | impolite on shared LoRa networks |
 
 A standard Bloop is 64 symbols / 40 payload bytes. A full 64-symbol BloopPacket (with 16-byte header and 2-byte CRC) is **58 bytes** on the wire — a polite LoRa-sized target.
 
@@ -203,7 +203,7 @@ The protocol kernel. No UI assumptions, no transport metadata.
 - `encode_text` / `decode_text` — text ↔ `EncodedBloop { bytes, symbol_count }`
 - `symbols_to_tokens` / `tokens_to_symbols` — parse ESC extension triples
 - `validate_text` / `validate_symbols` — non-fatal `ValidationReport` with issue list
-- `size_class` — classify symbol count as pulse / bloop / longbloop / flood / too long
+- `size_class` — classify symbol count as blip / bloop / blooper / bloopest / too long
 
 ### bloop-packet
 

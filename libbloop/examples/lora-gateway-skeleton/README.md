@@ -50,7 +50,7 @@ Actual air time depends on your configuration. Rough estimates for a 58-byte pac
 | SF9 | 125 kHz | 4/5 | ~329 ms   | Balanced                 |
 | SF12| 125 kHz | 4/5 | ~2465 ms  | Long range, very slow    |
 
-A flood (256-symbol Bloop, 160 payload bytes, ~176 wire bytes) at SF12 exceeds 7
+A bloopest (256-symbol Bloop, 160 payload bytes, ~176 wire bytes) at SF12 exceeds 7
 seconds of air time and is **impolite on shared LoRa networks**. The recommended
 maximum for shared use is a 64-symbol Bloop.
 
